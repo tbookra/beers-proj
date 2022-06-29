@@ -1,23 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+// import 'semantic-ui-css/semantic.min.css'
+import {BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import Header from './components/Header';
+import ProductDetails from './components/ProductDetails';
+import ProductListing from './components/ProductListing';
+import ProductComponent from './components/ProductComponent';
+import FavoredProductPage from './components/FavoredProductPage'
+import ErrorPage from './components/ErrorPage'
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React 11111
-        </a>
-      </header>
+      <Router>
+      <Header />
+        <Routes>
+          <Route path="/" element = {<ProductListing />} />
+          <Route path="/favored" element = {<FavoredProductPage />} />
+          <Route path="/product/:id" element = {<ProductDetails />} />
+          <Route path="/ProductComponent" element = {<ProductComponent />} />
+          <Route path="*" element = {<ErrorPage />} />
+        </Routes>
+      </Router>
+      
     </div>
   );
 }

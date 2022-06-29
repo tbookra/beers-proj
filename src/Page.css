@@ -1,0 +1,9 @@
+.container1{
+    margin: 7%;
+}
+
+.buttonsDiv{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;;
+}
