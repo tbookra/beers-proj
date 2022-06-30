@@ -26,9 +26,6 @@ export const addFavoredProductReducer = (state=initialState.favored_product,{typ
                  [itemName]:payload
                 }
         case ActionTypes.REMOVE_SELECTED_PRODUCT:
-            // const itemId = payload.product.id
-            // delete state[itemId]
-            // return  state
             const itemId = payload.product.id
             const clone = structuredClone(state)
             delete clone[itemId]

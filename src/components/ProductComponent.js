@@ -1,6 +1,5 @@
 import React, {useEffect,useState, useRef} from 'react' 
 import { useSelector } from 'react-redux';
-// import {Link} from 'react-router-dom'
 import { Card, Image } from 'semantic-ui-react'
 import Favored from './Favored'
 import BeerModal from './BeerModal'
@@ -35,23 +34,18 @@ function ProductComponent({products,favoredMode}) {
             items.map((product) => {
                 const {id, name, image_url, description} = product
                 return (
-               
-                    <Card key={id}>
+                <Card key={id}>
                     <BeerModal itemData={product}>
-                    <Image src={image_url} wrapped ui={false} />
+                        <Image className='modal_inicator' src={image_url} wrapped ui={false} />
                     </BeerModal>
                     <Card.Content>
                       <Card.Header>{name}</Card.Header>
-                      
                       <Card.Description>
                        {description}
                       </Card.Description>
                     </Card.Content>
                     <Favored favoredProduct={!!favoredProducts[id]} product={product} favoredMode={favoredMode} hasFavoredChanged={hasFavoredChanged}  />
-                 
-                  </Card>
-            
-                
+                </Card>
             )
             })
         )

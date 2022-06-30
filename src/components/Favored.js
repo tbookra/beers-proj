@@ -34,7 +34,6 @@ function Favored({favoredProduct, product, favoredMode,hasFavoredChanged}) {
     }
 
     const handleDropdownChange = (event, data) => {
-      // console.log("changed!!!", data.value, product);
       setProductGrade(data.value)
       dispatch(rateBeer({id:product.id, val: data.value}))
     }
@@ -46,16 +45,15 @@ function Favored({favoredProduct, product, favoredMode,hasFavoredChanged}) {
   return (
     <>
         <Card.Content extra>
-                      <>
-                      {favoredMode && isfavored && productGrade && <div>Grade: {productGrade} </div>}
-                      <span>Like It?  </span> 
-                        <Icon name={isfavored ? "star" : "star outline"} onClick={()=>handleFavoredClick()} />
-                        {favoredMode && isfavored && 
-                        <Dropdown placeholder='Rate' fluid selection options={options} onChange={handleDropdownChange} />
-                        }
-                      </>
-                      
-                    </Card.Content>
+            <>
+            {favoredMode && isfavored && productGrade && <div>Grade: {productGrade} </div>}
+            <span>Like It?  </span> 
+              <Icon name={isfavored ? "star" : "star outline"} color='yellow' onClick={()=>handleFavoredClick()} />
+              {favoredMode && isfavored && 
+              <Dropdown placeholder='Rate' fluid selection options={options} onChange={handleDropdownChange} />
+              }
+            </>
+        </Card.Content>
                     
     </>
   )

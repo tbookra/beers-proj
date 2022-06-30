@@ -10,4 +10,14 @@
 
 .searchDiv{
     margin: 10px;
+    display: flex;
+    justify-content: right;
+}
+
+.serchInput{
+    width: 250px;
+}
+
+.modal_inicator{
+    cursor: pointer;
 }

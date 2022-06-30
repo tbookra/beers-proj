@@ -24,7 +24,6 @@ function RemoveFavoredModal() {
     >
       <Modal.Header>Attention!</Modal.Header>
       <Modal.Content >
-       
         <Modal.Description>
           <p className='paragraf'>Are you sure?</p>
         </Modal.Description>
