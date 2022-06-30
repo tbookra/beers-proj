@@ -26,9 +26,17 @@ export const addFavoredProductReducer = (state=initialState.favored_product,{typ
                  [itemName]:payload
                 }
         case ActionTypes.REMOVE_SELECTED_PRODUCT:
+            // const itemId = payload.product.id
+            // delete state[itemId]
+            // return  state
             const itemId = payload.product.id
-            delete state[itemId]
-            return  state
+            const clone = structuredClone(state)
+            delete clone[itemId]
+            return  clone
+        case ActionTypes.RATE_BEER:
+            const cloneState = structuredClone(state)
+            cloneState[payload.id].product.rate = payload.val
+            return  cloneState
         case ActionTypes.CLEAR_LIST:
             return  {}
         default:

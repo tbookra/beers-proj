@@ -20,3 +20,10 @@ export const clearList = () => {
        
     }
 }
+
+export const rateBeer = (rateObj) => {
+    return {
+        type: ActionTypes.RATE_BEER,
+        payload: rateObj,
+    }
+}
