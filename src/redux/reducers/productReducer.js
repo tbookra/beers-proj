@@ -27,13 +27,32 @@ export const addFavoredProductReducer = (state=initialState.favored_product,{typ
                 }
         case ActionTypes.REMOVE_SELECTED_PRODUCT:
             const itemId = payload.product.id
+           
+            // let arr1 = []
+            // for(const item in state){
+            //     arr1.push(state[item]);
+            // }
+            // console.log('arr1',arr1);
+            // console.log('filtered',arr1.map(item => item.product).filter(item => item.id !== itemId));
+          
             const clone = structuredClone(state)
             delete clone[itemId]
             return  clone
+           
         case ActionTypes.RATE_BEER:
-            const cloneState = structuredClone(state)
-            cloneState[payload.id].product.rate = payload.val
-            return  cloneState
+            const {id} = payload
+     
+            return {
+                ...state,
+               [id]: {
+                ...state[id],
+                product: {
+                    ...state[id].product,
+                    rate: payload.val
+                }
+            }
+            }
+          
         case ActionTypes.CLEAR_LIST:
             return  {}
         default:

@@ -2,20 +2,18 @@ import axios from 'axios';
 import React, {useEffect, useState, useRef} from 'react'
 import { useSelector } from 'react-redux';
 import { Button, Input } from 'semantic-ui-react'
-import { debounce } from "lodash"
 import RemoveFavoredModal from './RemoveFavoredModal'
 
 import '../Page.css';
-// import {} from "../redux/actions/productActions"
 import ProductComponent from './ProductComponent';
 
 
 
 function ProductListing() {
-    const favoredProducts = useSelector((state)=> state);
+    const favoredProducts = useSelector((state)=> state.favored_product);
     const [products, setProducts] = useState([])
     const [page,setPage] = useState(1)
-    const [searchMode, setSearchMode] = useState(false)
+    const [, setSearchMode] = useState(false)
     const searchStr = useRef(0)
     const lastFetch = useRef()
 
@@ -30,25 +28,27 @@ function ProductListing() {
         }
     }
 
-    const debouncedSearch = React.useRef(
-        debounce(async (str) => {
-          return await axios.get(`https://api.punkapi.com/v2/beers?food=${str}`);
-          
-        }, 300)
-      ).current;
+   
 
     const handleSearchChange = async (event,data) => {
+        let timer;
         searchStr.current = event.target.value
-        if(searchStr.current.length === 0)  {
-            setProducts(lastFetch.current)
-            setSearchMode(prev => !prev)
+        if(timer){
+            clearTimeout(timer)
         }
-        if(searchStr.current.length > 1){
-            const searchedData = await debouncedSearch(searchStr.current)
-            if(searchedData){
-                setProducts(searchedData.data)
+        timer = setTimeout(async() => {
+            if(searchStr.current.length === 0)  {
+                setProducts(lastFetch.current)
+                setSearchMode(prev => !prev)
             }
-        } 
+            if(searchStr.current.length > 1){
+                const searchedData = await axios.get(`https://api.punkapi.com/v2/beers?food=${searchStr.current}`)
+                if(searchedData){
+                    setProducts(searchedData.data)
+                }
+            } 
+        },300)
+        
      }
 
     useEffect(() => {
@@ -60,14 +60,13 @@ function ProductListing() {
             lastFetch.current = data
             setProducts(data)
         }
+        
         fetchProducts(page)
-        return () => {
-            debouncedSearch.cancel();
-          };
-    },[page, favoredProducts,debouncedSearch,searchMode])
+        
+    },[page, favoredProducts])
   return (
     <div className='container1'>
-        <div className='searchDiv'> <Input className='serchInput' onChange={handleSearchChange} icon='search' placeholder='Search by matching food...   ' /></div>
+        <div className='searchDiv'> <Input className='searchInput' onChange={handleSearchChange} icon='search' placeholder='Search by matching food...   ' /></div>
         <div className='buttonsDiv'>
             {products.length===24 && <div><Button content='Prev' icon='left arrow' labelPosition='left' onClick={() => handlePageBtnClick("down")} /></div>}
             <div><RemoveFavoredModal /></div>

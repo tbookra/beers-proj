@@ -12,7 +12,7 @@ function ProductComponent({products,favoredMode}) {
     const [favoredChanged, setFavoredChanged] = useState(false)
 
     if(!Array.isArray(products)){
-        let productArr = []
+        let productArr = [] 
         for (const property in products){
             productArr.push(products[property].product)
       }
